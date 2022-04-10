@@ -104,10 +104,5 @@ namespace Projektarbete_Avancerad_.NET.API.Controllers
                     "Error when trying to delete time report");
             }
         }
-
-
-
-
-
     }
 }
