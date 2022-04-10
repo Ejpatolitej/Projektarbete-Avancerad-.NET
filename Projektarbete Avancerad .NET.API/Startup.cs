@@ -40,6 +40,7 @@ namespace Projektarbete_Avancerad_.NET.API
             services.AddScoped<IpaANET<Employee>, EmployeeRepo>();
             services.AddScoped<IpaANET<Project>, ProjectRepo>();
             services.AddScoped<IpaANET<TimeReport>, TimeReportRepo>();
+            services.AddScoped<IpaANET<TimeRepEmployee>, TimeRepEmpRepo>();
 
         }
 

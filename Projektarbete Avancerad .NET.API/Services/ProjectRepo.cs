@@ -38,9 +38,16 @@ namespace Projektarbete_Avancerad_.NET.API.Services
             return await _appDbContext.Projects.Include(p => p.Employees).ToListAsync();
         }
 
+        public Task<IEnumerable<Project>> GetAll(int week)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Project> GetSingle(int id)
         {
-            return await _appDbContext.Projects.Include(p => p.Employees).FirstOrDefaultAsync(p => p.ProjectID == id);
+            return await _appDbContext.Projects.Include(p => p.Employees)
+                .ThenInclude(p => p.TimeRepEmployees).ThenInclude(p => p.TimeReport)
+                .FirstOrDefaultAsync(p => p.ProjectID == id);
         }
 
         public async Task<Project> Update(Project Entity)

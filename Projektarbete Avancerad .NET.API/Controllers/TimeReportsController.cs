@@ -30,17 +30,12 @@ namespace Projektarbete_Avancerad_.NET.API.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<TimeReport>> GetTimeReport(int id)
+        [HttpGet("{week:int}")]
+        public async Task<IActionResult> GetWeek(int week)
         {
             try
             {
-                var result = await _timeReportRepo.GetSingle(id);
-                if (result == null)
-                {
-                    return NotFound($"Time report with ID: {id} was not found in database");
-                }
-                return Ok(result);
+                return Ok(await _timeReportRepo.GetAll(week));
             }
             catch (System.Exception)
             {

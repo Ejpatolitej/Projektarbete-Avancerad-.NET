@@ -2,6 +2,7 @@
 using Projektarbete_Avancerad_.NET.API.Models;
 using Projektarbete_Avancerad_.NET.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Projektarbete_Avancerad_.NET.API.Services
@@ -35,12 +36,23 @@ namespace Projektarbete_Avancerad_.NET.API.Services
 
         public async Task<IEnumerable<TimeReport>> GetAll()
         {
-            return await _appDbContext.TimeReports.ToListAsync();
+            return await _appDbContext.TimeReports
+                .Include(t => t.TimeRepEmployees).ThenInclude(t => t.Employee)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TimeReport>> GetAll(int week)
+        {
+            return await _appDbContext.TimeReports
+                .Include(t => t.TimeRepEmployees).ThenInclude(t => t.Employee)
+                .Where(t => t.Week == week).ToListAsync();
         }
 
         public async Task<TimeReport> GetSingle(int id)
         {
-            return await _appDbContext.TimeReports.FirstOrDefaultAsync(t => t.TimeReportID == id);
+            return await _appDbContext.TimeReports.Include(t => t.TimeRepEmployees)
+                .ThenInclude(t => t.Employee)
+                .FirstOrDefaultAsync(t => t.TimeReportID == id);
         }
 
         public async Task<TimeReport> Update(TimeReport Entity)

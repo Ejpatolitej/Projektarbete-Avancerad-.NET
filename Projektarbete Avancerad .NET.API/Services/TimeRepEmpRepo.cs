@@ -38,6 +38,11 @@ namespace Projektarbete_Avancerad_.NET.API.Services
             return await _appDbContext.TimeRepEmployees.ToListAsync();
         }
 
+        public Task<IEnumerable<TimeRepEmployee>> GetAll(int week)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<TimeRepEmployee> GetSingle(int id)
         {
             return await _appDbContext.TimeRepEmployees.FirstOrDefaultAsync(t => t.TimeRepEmployeeID == id);
